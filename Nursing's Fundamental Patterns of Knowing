@@ -40,6 +40,6 @@ output: html_document
 -_예시: 아동을 처치할 때, 아동이 처치에 집중하여 겁먹지 않도록 주의를 분산시키고 유머를 이용함._
 
 ```(r)
-#### Reference
+**Reference**
 Chinn & Kramer (2018), Nursing’s Fundamental Patterns of Knowing 
 ```

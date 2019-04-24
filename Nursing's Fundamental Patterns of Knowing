@@ -5,7 +5,6 @@ date: "2019년 4월 24일"
 output: html_document
 ---
 
-```(r)
 ## Emancipatory knowing
 - 사회적, 문화적, 정치적 상태를 비판적으로 받아들여서, 왜 이런 현상이 발생 하였는지 인식하는 인간의 능력.
 - 불공정이나 정의롭지 않은 상태를 제거/없애려는 행동을 유발함.
@@ -34,7 +33,8 @@ output: html_document
 -	Aesthetic knowing은 실무에서 간호사의 행동, 태도, 이야기, 상호작용 등으로 나타남. 시, 그림, 이야기, 음악 등의 형태로 표현될 수도 있음. 
 - 경험하고 행동하는 순간(moment of experience-action)에서 표현됨.
 -_예시: 아동을 처치할 때, 아동이 처치에 집중하여 겁먹지 않도록 주의를 분산시키고 유머를 이용함._
-```
 
+```(r)
 ###### Reference
 Chinn & Kramer (2018), Nursing’s Fundamental Patterns of Knowing 
+```

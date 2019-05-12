@@ -1,0 +1,436 @@
+---
+title: "Chap10. Postcollection processing of survey data"
+author: "박사 1학기 지현주"
+date: "2019년 5월 16일"
+output: ioslides_presentation
+subtitle: 2019-1 조사연구방법론
+editor_options:
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+#output: powerpoint_presentation
+# output: ioslides_presentation
+```
+
+## Chapter 10에 대해서
+ **_<자료 처리 과정>_**, 
+ 
+ 즉 자료수집 이후의 단계들을 알아보아요:)
+
+ 
+  * 자료를 어떻게 처리해야 결과가 **표적모집단**과 비슷해질까?
+
+## 10.1 Introduction
+
+1. Coding(코딩): 응답결과를 숫자로 전환
+1. Data entry(자료입력):자료를 컴퓨터로 저장
+1. Editing(편집): 오류 잡아내기('제왕절개 과거력이 있는' '남성'-> 오류) 
+1. Imputation(대체): 결측값을 대체값으로 추정
+1. Weighting(가중치): 표적모집단의 특성을 반영한 가중치 구성 
+1. Sampling variance estimation(표본의 분산 추정): 통계치의 정확도 평가 
+
+
+## 조사연구 과정: paper 
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/figure10.1.PNG){ width=60% } 
+
+
+## 조사연구 과정: computer
+- 수집, 자료 입력, 편집 과정을 한번에!
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/figure10.2.PNG){ width=60% } 
+
+# 코딩 
+## 10.2 Coding(코딩)
+### 비수치 자료를 수치 자료로 바꾸는 것 
+(비수치 자료란 단어, 구문, 시각적 이미지, 소리 등)
+
+
+  * 최근 설문조사에서는 개방형 질문(텍스트로 답)이 줄어들고, 숫자화된 답안이 널리 사용되고 있다. 
+  * 다른 의견들을 듣기 위해서는 객관식의 '기타'문항을 만든다. 
+    - 개방형 질문으로 조사한 결과를 코딩하는 과정에서는 코딩 오류를 주의해야 함
+    - Collins (1975)에 따르면, 설문에서 응답자의 32%가 다른 직업군으로 코딩되었다. 
+    - 예시: 어떤 종류의 일을 하십니까? 
+
+## 10.2.1. Practical Issues of Coding
+### 코딩은 자료의 형식을 바꾸고 요약하는 단계
+
+
+### _* 실용적인 코드의 특징_
+- 통계처리가 가능한 숫자형태
+- 해당 범주의 응답치를 포괄하는 분류체계
+- 모든 응답을 분류 가능
+- 상호 배타성(하나의 응답이 하나의 분류체계에 해당)
+- 연구 목적과 부합하는 범주의 수 
+
+## 10.2.1. Practical Issues of Coding(cont.)
+* 코드 범주는 연구 목적(가설)을 반영해야 한다.
+  * 예: 감독직의 성취 연구: 감독직/비감독직 구분해야
+* 코드 분류 범주의 수는 제한적이어야 한다.
+  * 예: 50 명 대상의 설문 -> 직업군 50개로 분류 
+* 변수를 분류하는 체계는 다양할 수 있다.
+  * 예: 영국에서는 직업 분류를 위해 일반적으로 (1) 표준 직업 분류와 (2) 사회경제적 집단 분류체계를 이용
+* 잘 짜여진 분류체계에서도, 몇몇 응답은 분류가 어렵다. -> 코드 범주는 수정 가능
+* '모름'이나 '해당없음'에도 각각의 코딩값이 필요하다. 
+
+## 10.2.2. Teoretical Issues in Coding Activies
+- 코더는 응답자의 의도를 파악하여 적절한 코드를 부여해야 한다.
+이를 위해 코더는 각각의 분류 범주에 대해 이해하고 있어야 하고, 응답값에 대한 개념을 파악하는 훈련이 이뤄져야 한다. 
+
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/figure10.3.PNG)
+
+
+## 10.2.3. "Field Coding": An Intermediate Design
+- field coding이란 개방형 질문 결과를 면접원이 적절하게 코딩하는 과정임.
+- 구두(verbal) 자료 수집과정과 코딩을 결합 
+- 기록된 응답값만을 확인하는 office coding에 비해 내용을 직접 파악하고 경청할 수 있다는 장점을 가짐 
+- 비용의 측면에서 효율적 
+- 면담자가 응답을 들으면서 코드 범주를 선택해야 한다는 부담감을 느낌
+- office coding을 했을 때 field coding보다 코드를 적게 사용하고, field coding에서는 '기타'비율이 높았다는 연구 결과가 있음(Collins & Courtenay, 1985)
+
+## Table 10.1
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/table10.1k.PNG){ width=40% } 
+
+## 10.2.4. Standard Classification Systems
+1. The Standard Occupational Classification (SOC, 표준 직업 분류)
+1. The North American Industry Classification System (NAICS, 북미 산업 분류)
+
+## 10.2.4. The Standard Occupational Classification
+* 미국 노동청에서 관리하는 분류체계 
+* 820개 이상의 직업군을 분류 
+
+## 10.2.4. The Standard Occupational Classification(cont.)
+1. 보상을 받지 않는 업무를 포함하여 모든 직업을 분류
+1. 직업은 수행되는 일, 기술, 교육, 훈련, 자격증에 의해 분류
+1. 근무시간의 20% 이상을 근로자와 유사한 업무를 수행하는 관리자는 해당 근로자와 동일하게 분류
+1. 근무시간의 80% 이상을 감독 업무에 할애하는 관리자는 감독 범주로 분류
+1. 수련직과 보조(조수)는 구분
+1. 특정 직업에 대한 분류체계가 적절하지 않다면 기타 범주
+1. 하나 이상의 분류에 해당하는 직업군은 가장 높은 기술을 요하는 직업으로 분류
+1. 자료를 수집하고 보고하는 기관은 능력과 자료 수준 등에 따라 분류  
+
+## Table 10.2
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/table10.2.PNG)
+
+## 10.2.4. The North American Industry Classification System
+* 캐나다, 멕시코, 미국이 참여한 산업 분류 체계 
+* 현실과 코드 구조가 일치하지 않아서 분류체계를 생성하게 됨 
+* 1,170개 산업을 포함 
+* 북미자유무역협정을 위해 캐나다, 멕시코, 미국의 수치를 비교하는 데 이용됨 
+* 특히 서비스 부분을 세분화함 
+
+
+## Table 10.3
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/table10.3.PNG)
+
+## 10.2.5.Other Common Coding Systems
+* The International CLassification of Diseases(ICD)
+* The Diagnostic and Statistical Manual for Mental Disorders(DSM)
+* 행정차지구역이나 GPS(지리적 좌표)를 이용하여 공간 자료를 코딩하기도 함
+
+## 10.2.6. Quality Indicators in Coding
+**_코딩 단계에서의 오류 가능성_**
+
+
+* 코딩 구조의 취약성
+  * 서로 다른 특성의 응답이 하나의 범주로 분류
+  * 예: 학력이 직업에 미치는 영향
+    a. 고졸&전문대졸 vs 대졸
+    b. 고졸 vs 전문대졸&대졸 
+    
+* 코더 분산 
+  * 9.3. 면접원 분산과 유사한 개념
+  * 코더마다 분류체계를 다르게 적용함
+  * 훈련을 통해 코더 간 차이를 줄일 수 있는지에 대한 연구는 미흡함
+
+## 10.2.6. Quality Indicators in Coding(cont.)
+
+* 코더 분산(cont.)
+  * 코딩 품질 향상을 위한 방안(Cantor&Esposito, 1992)
+  - 면접관 훈련으로 적은 응답을 필터링
+  - 직업명에 대한 중요성을 면접관에게 훈련
+  - 여러 활동에 대해 열거할 때 철저하게 조사
+  - 면접관에게 코더 훈련을 시킴
+  - 분류에 도움이 되는 참고자료를 면접원에게 제공 
+
+# 자료입력 
+
+## 10.3. Entering Numeric Data into Files
+- 숫자로 된 자료를 파일에 입력하는 과정을 "data capture"라고 명명하기도 함
+- 컴퓨터를 이용한 조사연구에서는 응답 과정에서 수행함
+- -> 면접자 또는 응답자가 수행 
+- 종이를 이용한 조사연구에서는 자료 입력 연구원이 수행함
+- 비용적인 문제를 고려한다면, 컴퓨터를 이용한 조사방식이 추천됨 
+
+# 편집
+
+## 10.4. Editing
+- 수집된 자료를 확인하고 변경하는 과정(재검토)
+  - data의 품질을 높이기 위해 면접원 또는 응답자에 의해 입력된 자료를 수정
+  - 결측된 자료 항목에 적절한 숫자를 채우는 과정도 포함 
+
+## 10.4. Editing(cont.)
+- 일반적으로 수행되는 편집
+1. range edit(예: 연령은 1-100세 사이 값)
+1. ratio edit(예: 소의 양과 우유 생산량의 비율은 x와 y 사이의 값이다.)
+1. 과거 data와 비교(예: 2회 방문 시 가구원 수는 1회 방문 시 가구원 수와 2명 이상 차이가 없어야 한다.)
+1. balance edit(예: 집, 직장, 여가 등에서 보내는 시간의 백분율 합은 100이어야 한다.)
+1. 최대값, 최소값 점검
+1. consistency edit(예: 아동은 '미혼'으로 분류되어 있다.)
+
+## 조사연구 과정: computer
+- 컴퓨터를 이용하면 편집과정을 자료수집 단계에서 실시할 수 있다. 하지만 이 과정에서 응답 시간이 길어지고, 응답이 완료되지 못하게 만들 수 있다.
+
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/figure10.2.PNG){ width=60% } 
+ 
+
+## 10.4. Editing(cont.)
+- data의 양, 조사 시기가 횡단적인가/단면적인가, 어떤 표집틀을 사용하였는지 등에 의해 편집의 양이 결정된다. 
+- 대규모 정부 조사에 관한 연구에서는 총 예산의 20% 이상이 편집 과정에서 소요된다고 밝히기도 했다. 
+- 제대로 계획되지 않은 편집은 자료를 변형시키고 품질을 저하시킴
+  - 예시
+  - 16살에 교육수준이 박사학위로 체크됨 
+  - -> 평균적인 16세 교육수준으로 변경함 
+  - -> 출판물이 있었냐는 물음에 '박사학위논문'이 체크됨 
+  - -> 진짜 박사학위일수도?!
+
+## 10.4. Editing(cont.)
+### Fellegi-Holt 접근법
+1. data는 가능한 최소한으로 변경하여 모든 편집 규칙을 만족하도록 한다.
+1. data 파일의 빈도 구조는 가능한 유지한다. 
+1. 대체 규칙(imputation rule)은 편집규칙으로부터 추론될 수 있어야 한다.
+
+## 10.4. Editing(cont.)
+### Fellegi-Holt 접근법의 장단점 
+장점|단점
+:--------:|:--------:
+데이터를 가능한 많이 보존함|**강력한 편집규칙이 필요함** 
+모든 편집규칙을 만족하는 일관된 data유도|**내부적으로 일치하는 data를 구성할 뿐, 특정 분포의 성절을 갖는 data를 구축하도록 하지는 않음**
+많은 변수들이 적용될 수 있음|**모든 편집규칙이 필수적인 편집규칙으로 간주됨**
+자료출처: 한국통계학회(2008). 에디팅 품질관리 매뉴얼. Retreived from: http://www.prism.go.kr/homepage/researchCommon/downloadResearchAttachFile.do;jsessionid=FFE5D4A3CF40E13AA16F9747A8406959.node02?work_key=001&file_type=CPR&seq_no=001&pdf_conv_yn=N&research_id=1240000-200800018
+
+## 10.4. Editing(cont.)
+_**좋은 편집이란?**_
+
+1. 측정하는 개념과 편집규칙이 연관됨
+1. 결과에 반복적으로 적용 가능함
+1. 비용 절약
+1. 최소한의 자료 수정
+1. 편집과 대체의 통합
+1. 모든 자료에 모든 편집 기준을 적용 
+
+# 가중치
+
+## 10.5. Weighting
+복잡한 연구설계의 경우, 표본이 불균등하게 선택되고 응답 비율이 하위 집단 간 다르게 나타나며, 핵심 변수의 분포가 모집단의 분포와 다르게 나타날 수 있다. 이러한 점을 보완하기 위해 가중치가 사용된다. 
+
+## 10.5. Weighting(cont.)
+### 가중치란?
+"복합표본설계(complex sample design)을 사용할 경우 가중치를 적용하여 분석해야 편향이 없는(모집단에 가까운) 추정결과를 얻을 수 있다."
+
+- 예시: 국민건강영양조사의 가중치
+- 추출율, 응답율, 모집단 인구 구조를 반영하는 가중치를 제시
+
+자료출처: 윤영숙(2013). 가중치 분석. _가정의학회지 3_(1). S535.
+Retrived from: http://www.kafm.or.kr/master/class/data/2013s_abstract/085.pdf
+
+## 가중치 예시: 제6기 국건영
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/kky.png){ width=90% } 
+ 
+
+## 가중치 예시: 제6기 국건영(cont.)
+- 가중치 변수: wt_itvex
+- 가중치 범위: 351~44,189
+
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/wt_itvex_summary.PNG){ width=90% } 
+
+
+- 가중치 351: 제주도에 거주하는 43세 여성
+- 가중치 44,189: 경상남도에 거주하는 27세 남성
+
+## 쉽게 이해하는 가중치
+- 모집단: 전체 인구의 20%가 상류층, 80%가 중산층 이하
+- 표본: 상류층의 70%가 반려동물, 중산층 이하의 40%가 반려동물
+
+- 반려동물 키우는 비율 알아보기
+
+1. (70+40)/2=55%
+1. 0.2X70 + 0.8X40=46%
+
+- 2번째 방법이 전체 표본과 더 유사함
+
+
+## 가중치 부과
+1. 단일 비(First-stage ratio) 수정
+1. 차별적 선택 확률(Differential selection probabilities)
+1. 단위 무응답(unit nonresponse)의 조정
+1. 표집 분산의 축소를 위한 사후 층화(poststratification)
+
+## 10.5.1. Weighting with a First-Stage Ratio Adjustment
+- 일반적인 복합표본설계에서는 표본의 비율이 모집단의 비율을 따름(비례 확률 추출)
+- 예: 전체 인구 중 1/8가 라틴, 7/8가 비라틴
+- -> 표본의 1/8가 라틴, 7/8가 비라틴 
+
+## 10.5.1. Weighting with a First-Stage Ratio Adjustment(cont.)
+$전체 모집단 인구(추정값) = 해당 단위의 인구\div해당 단위가 선택될 비율$
+
+$Wi = 전체 모집단 인구\div전체 모집단 인구(추정값)$
+
+$Wi = 전체 모집단 인구\div(해당 단위의 인구\div해당 단위가 선택될 비율)$
+ 
+## 10.5.2. Weighting for Differential Selection Probabilities
+- 모집단과 다른 비율로 표본 추출(비비례 확률 추출)
+- 예: 라틴계 vs 비라틴계 비교 연구
+- 모집단 비율에 따라 표본의 1/8만 라틴계로 추출하는 것보다, 라틴계 50% & 비라틴계 50%를 추출하는 것이 통계적으로 두 집단을 비교하는 데 더 정확한 값을 제공한다. 
+- 라틴계 대상자를 추출하는 표본 비율을 증가시키고(가중치는 작게), 비라틴계 대상자를 추출하는 표본 비율을 감소시켜야 함(가중치는 크게) 
+
+## 10.5.3. Weighting for Adjust for Unit Nonresponse
+### <6.2.단위 무응답 복습>
+
+세 가지 유형의 단위 무응답은 각각 고유한 원인을 갖고 있으며 이는 통계치의 품질에 영향을 미친다.
+
+1. 비접촉(noncontact) 서베이 요청 전달 실패 (예) 비접촉，즉 표본 단위의 위치(주소)를 파악하지 못해서 우체국이 설문지를 우편으로 반송시킨다.
+2. 협조 거부(refusal) : (예) 접촉된 사림이 설문을 거부한다.
+3. 참여 무능력(inability to particpate) 참여할 능력이 없음. (예) 접촉된 사람이 조사 설문지의 언어를 이해하지 못한다 )
+
+## 10.5.3. Weighting for Adjust for Unit Nonresponse(cont.)
+- 연령군 별로 무응답 비율이 상이하다. 
+- 단위 무응답 비율을 고려한 가중치 설정이 필요 
+- 예시 
+
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/table10.6.PNG)
+
+
+## 10.5.4. Poststratification Weighting
+- 사후 계층화
+- 표본으로 구해진 가중치의 합 = 모집단의 합 
+- 성별 등 중요한 변수에 따른 비율을 모집단의 비율과 일치하도록 조정 
+
+## 10.5.5. Putting All the Weights Together
+- 모든 가중치의 결합
+- 지금까지의 가중치를 곱함 
+- 하나의 변수로 입력되어 자료의 분석에 이용됨 
+- 일부 분석에만 가중치를 적용한다면, 해석의 어려움 야기 
+- 모든 개체가 동일한 가중치를 갖는 경우, 가중치는 필요하지 않음
+
+## 가중치는 잘 이용되고 있을까?
+- Kim, Y., Park, S., Kim, N. S., & Lee, B. K. (2013). Inappropriate survey design analysis of the Korean National Health and Nutrition Examination Survey may produce biased results. _Journal of preventive medicine and public health, 46_(2), 96.
+
+- This study investigated the proportion of research papers that have used an **appropriate statistical methodology out of the research papers analyzing the KNHANES** cited in the PubMed online system from 2007 to 2012. We also compared differences in mean and regression estimates between the ordinary statistical data analyses without sampling weight and design-based data analyses using the KNHANES 2008 to 2010.
+
+## 가중치는 잘 이용되고 있을까?(cont.)
+During the period between 2007 and June 2012, a total of 256 relevant research papers were cited in PubMed. 
+~ Throughout the 5.5 year time period, 19.8% of the articles used design-based data analyses.
+
+[Inappropriate Survey Design Analysis of the Korean National Health and Nutrition Examination Survey May Produce Biased Results](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3615385/)
+
+# 대체
+
+## 10.6. Imputation for Item-missing Data
+- 항목 무응답과 단위 무응답은 구분해야 함
+- 항목 무응답: 특정 문항에 대한 무응답
+
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/figure10.4.PNG)
+
+## 10.6. Imputation for Item-missing Data(cont.)
+- 최선의 결측 처리 방법이 명확하지 않음
+- 해당 값을 무시할 것인가 vs 대체할 것인가 
+
+1. 무시: complete case analysis
+   * 결측치가 있는 행은 삭제하고 완전한 data만 분석
+1. 대체: imputation
+   * 표본이 모집단을 더 잘 반영하기 위해 값을 대체 
+   * 부정확하거나 결측된 값에 추정 값을 부여 
+   * 대체를 실시한 경우 대체 표시를 시행하여 나타내야 함 
+   * 장점: 모든 변수 분석에 전체 n수가 적용됨 
+
+## 어떻게 대체할 것인가 
+- 다양한 Imputation 방법들이 제시되고 있는 추세 
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/imputation_journal.PNG)
+
+## 어떻게 대체할 것인가(cont.)
+### <평균값 대체>
+- 가장 단순한 대체 방법
+- 해당 변수에 대한 평균값으로 결측값을 대체 
+- 분포가 왜곡될 수 있음 
+- 확률적 요소를 대체 값에 추가하여 분포를 반영하는 방법으로 보완 가능 
+
+## 어떻게 대체할 것인가(cont.)
+### <회귀 대체>
+- 전체 평균값으로 대체하는 방법의 보완법으로, 하위 집단 별 평균법으로 대체할 수 있음 
+- 예측 모형으로 추정한 값을 적용 
+
+## 어떻게 대체할 것인가(cont.)
+### <핫덱 대체>
+- 고전적인 대체 방법
+- 응답값 중에서 하나를 랜덤하게 선정하여 무응답 항목에 대체하는 방법으로, 핫덱 대체를 이용하면 무응답 대체 후에도 표본의 분포가 그대로 유지되는 장점이 있다.
+
+- 출처: [김규성(2000). 무응답 대체 방법과 대체 효과. _조사연구학회_. 133-146](http://kasr.skyd.co.kr/images/1_2_1[1])
+
+## 어떻게 대체할 것인가(cont.)
+- <hot-deck 대체>
+- 예시 
+- 정렬 순서 상 가장 최근에 보고된 값으로 대체
+![](https://raw.githubusercontent.com/wlgus0122/ds_yonsei/master/table10.8.PNG)
+
+# 표본의 분산 추정
+
+## 10.7. Sampling Variance Estimation for Complex Samples
+* 분산 추청이 왜 필요한가?
+  * 계층 내 기본 단위 분산이 더 높다면, 더 낮은 기본 단위 분산을 갖는 계층과 맞추어, 그 계층에서 나온 표본의 크기를 늘린다. 모집단의 일부분이 큰 변이성을 가지고 있다면, 보다 안정된 표본 서베이 통계량을 구하기 위하여 거기서 더 큰 표본을 구해야 한다. (4.5.2. 계층의 비균등 배분 중)
+  
+## 10.7. Sampling Variance Estimation for Complex Samples(cont.)
+- 일반적인 통계 소프트웨어에서는 해당 기능을 지원하지 않음.
+- 별도의 소프트웨어 필요 
+
+- 3가지 전략
+
+1. Taylor Series Estimation(테일러 급수와 근사법)
+1. Balanced Repeated Replication(균형순환반복법)
+1. Jackknife Repeated Replication(잭나이프 순환법)
+
+## Taylor Series Estimation
+- 표본 값들의 단순 합계가 아닌 통계치의 분산 추정
+- 미분을 이용하여 모집단의 함수와 유사한 다항함수(테일러 급수)를 찾음 
+
+![](http://images.se2.naver.com/smedit/2017/3/27/j0rh5r0htcr1o2.jpg)
+
+## Balanced Repeated Replication
+- 반복적인 하위 표집에 의존 
+- 일반적으로 half sampling 방법으로 하위 표본 추출
+
+## Jackknife Repeated Replication
+- 반복적인 하위 표집에 의존 
+- 일반적으로 drop-out 밥ㅇ법으로, 자료로부터 하나의 집단을 탈락시켜 추출
+
+## 표본 분산 추정을 위한 소프트웨어 소개
+- CENVAR
+- VPLX
+- EpiInfo
+- SAS ver 8 이상(proc 구문)
+- STATA(svy 구문)
+- SUDAAN 
+- WesVar
+
+## 10.8. Survey Data Documentation and Metadata
+- 조사 연구 자료는 한 번 조사되면 많은 사람들에게 이용되도록 설계되어야 한다. 
+- "Metadata": 조사 연구에서 지식을 효과적으로 얻고자 하는 모든 이용자에게 필요한 모든 정보 
+- Metadata의 일반적인 유형
+  - 정의적: 모집단, 표집틀, 질문 용어, 코딩 용어를 기술
+  - 절차적: 면접원 훈련, 틀 개발, 응답자 선택, 자료수집의 절치를 기술
+  - 실행적: 같은 절차의 평가를 포함하는 항목결측자료 편집 오류 비, 평균 면접 시간, 면접원별 완료 사례 수의 평가
+  - 체계: 자료 형식, 파일 위치, 자료 이용 절자 자료 기록 항목의 정의, 표본 단위의 유형
+  
+## 10.9. Summary
+1. Coding(코딩): 응답결과를 숫자로 전환
+1. Data entry(자료입력):자료를 컴퓨터로 저장
+1. Editing(편집): 오류 잡아내기
+1. Imputation(대체): 결측값을 대체값으로 추정
+1. Weighting(가중치): 표적모집단의 특성을 반영한 가중치 구성 
+1. Sampling variance estimation(표본의 분산 추정): 통계치의 정확도 평가 
+
+## Discussion Topic
+1. 편집의 규칙은 언제 정하는 것이 좋을까요?
+1. 컴퓨터를 이용한 조사연구에서 '편집규칙'에 위배되면 pop-up창으로 경고하고 다음 페이지로 넘어가게 할 것인가요 / 다음 페이지로 넘어가지 않게 할 것인가요?
+1. 결측치를 대체해본 경험이 있으신가요?

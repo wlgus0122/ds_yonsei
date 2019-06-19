@@ -1,0 +1,23 @@
+# daum 실시간 검색어
+
+library(tidyverse)
+library(httr)
+library(rvest)
+
+res <- GET(url = 'https://www.daum.net')
+print(x = res)
+
+cat(content(x = res, as = 'text', encoding = 'UTF-8'))
+
+searchWords <- res %>% 
+  read_html() %>% 
+  html_nodes(css = '#mArticle > div.cmain_tmp > div.section_media > div.hotissue_builtin.hide > div.realtime_part > h4') %>% 
+  html_text(trim = TRUE)
+
+text <- res %>%
+  read_html(encoding='UTF-8) %>%
+            html_nodes(css='#mArticle > div.cmain_tmp > div.section_media > div.hotissue_builtin.hide > div.realtime_part > h4', 
+            xpath=//*[@id="mArticle"]/div[2]/div[1]/div[2]/div[1]/h4) %>%
+  html_text(trim(TRUE))
+
+print(x = searchWords)
